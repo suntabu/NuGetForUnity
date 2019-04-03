@@ -12,6 +12,7 @@
         {
             Source = string.Empty;
             Target = string.Empty;
+            Exclude = string.Empty;
         }
 
         /// <summary>
@@ -19,10 +20,11 @@
         /// </summary>
         /// <param name="source">The source path inside the project.</param>
         /// <param name="target">The target path inside the .nupkg file.</param>
-        public NuspecContentFile(string source, string target)
+        public NuspecContentFile(string source, string target,string exclude)
         {
             Source = source;
             Target = target;
+            Exclude = exclude;
         }
 
         /// <summary>
@@ -34,5 +36,8 @@
         /// Gets or sets the path for the target file inside the .nupkg file.
         /// </summary>
         public string Target { get; set; }
+        
+        
+        public string Exclude { get; set; }
     }
 }

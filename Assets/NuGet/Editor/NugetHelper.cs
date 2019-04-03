@@ -593,7 +593,7 @@
             // Use -NoDefaultExcludes to allow files and folders that start with a . to be packed into the package
             // This is done because if you want a file/folder in a Unity project, but you want Unity to ignore it, it must start with a .
             // This is especially useful for .cs and .js files that you don't want Unity to compile as game scripts
-            string arguments = string.Format("pack \"{0}\" -OutputDirectory \"{1}\" -NoDefaultExcludes", nuspecFilePath, PackOutputDirectory);
+            string arguments = string.Format("pack \"{0}\" -OutputDirectory \"{1}\" -ForceEnglishOutput -exclude \"**\\.git\" -exclude \"**\\.svn\"", nuspecFilePath, PackOutputDirectory);
 
             RunNugetProcess(arguments);
         }
@@ -1174,7 +1174,7 @@
                             if (NugetConfigFile.ReadOnlyPackageFiles)
                             {
                                 FileInfo extractedFile = new FileInfo(Path.Combine(baseDirectory, entry.FileName));
-                                extractedFile.Attributes |= FileAttributes.ReadOnly;
+//                                extractedFile.Attributes |= FileAttributes.ReadOnly;
                             }
                         }
                     }

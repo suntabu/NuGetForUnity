@@ -232,8 +232,9 @@
                 foreach (var fileElement in filesElement.Elements(XName.Get("file", nuspecNamespace)))
                 {
                     NuspecContentFile file = new NuspecContentFile();
-                    file.Source = (string)fileElement.Attribute("src") ?? string.Empty;
+                    file.Source = (string)fileElement.Attribute("src") ?? "**\\*.*";
                     file.Target = (string)fileElement.Attribute("target") ?? string.Empty;
+                    file.Exclude = (string)fileElement.Attribute("exclude") ?? "\\**\\.git\\**;\\**\\.svn\\**";
                     nuspec.Files.Add(file);
                 }
             }
@@ -330,6 +331,7 @@
                     var fileElement = new XElement("file");
                     fileElement.Add(new XAttribute("src", contentFile.Source));
                     fileElement.Add(new XAttribute("target", contentFile.Target));
+                    fileElement.Add(new XAttribute("exclude", contentFile.Exclude));
                     filesElement.Add(fileElement);
                 }
                 packageElement.Add(filesElement);
