@@ -232,9 +232,9 @@
                 foreach (var fileElement in filesElement.Elements(XName.Get("file", nuspecNamespace)))
                 {
                     NuspecContentFile file = new NuspecContentFile();
-                    file.Source = (string)fileElement.Attribute("src") ?? "**\\*.*";
-                    file.Target = (string)fileElement.Attribute("target") ?? string.Empty;
-                    file.Exclude = (string)fileElement.Attribute("exclude") ?? "\\**\\.git\\**;\\**\\.svn\\**";
+                    file.Source = (string)fileElement.Attribute("src") ?? "*\\**";
+                    file.Target = (string)fileElement.Attribute("target") ?? "\\";
+                    file.Exclude = (string)fileElement.Attribute("exclude") ?? ".git\\**;.svn\\**;";
                     nuspec.Files.Add(file);
                 }
             }

@@ -75,9 +75,9 @@
             {
                 new NuspecContentFile()
                 {
-                    Source = "**\\*.*",
-                    Target = "",
-                    Exclude = "\\**\\.git\\**;\\**\\.svn\\**",
+                    Source = "*\\**",
+                    Target = "\\",
+                    Exclude = ".git\\**;.svn\\**;",
                     
                 }
             };

@@ -220,6 +220,8 @@
             fileName = files[0];
             commandLine = arguments;
 #endif
+            
+            LogVerbose("command: " + commandLine);
             Process process = Process.Start(
                 new ProcessStartInfo(fileName, commandLine)
                 {
@@ -593,7 +595,7 @@
             // Use -NoDefaultExcludes to allow files and folders that start with a . to be packed into the package
             // This is done because if you want a file/folder in a Unity project, but you want Unity to ignore it, it must start with a .
             // This is especially useful for .cs and .js files that you don't want Unity to compile as game scripts
-            string arguments = string.Format("pack \"{0}\" -OutputDirectory \"{1}\" -ForceEnglishOutput -exclude \"**\\.git\" -exclude \"**\\.svn\"", nuspecFilePath, PackOutputDirectory);
+            string arguments = string.Format("pack \"{0}\" -OutputDirectory \"{1}\" -ForceEnglishOutput ", nuspecFilePath, PackOutputDirectory);
 
             RunNugetProcess(arguments);
         }
@@ -621,7 +623,7 @@
             }
 
             string arguments = string.Format("push \"{0}\" {1} -configfile \"{2}\"", packagePath, apiKey, NugetConfigFilePath);
-
+            
             RunNugetProcess(arguments);
         }
 
