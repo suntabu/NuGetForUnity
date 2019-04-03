@@ -111,7 +111,7 @@
             }
 
             // restore packages - this will be called EVERY time the project is loaded or a code-file changes
-            Restore();
+//            Restore();
         }
 
         /// <summary>
