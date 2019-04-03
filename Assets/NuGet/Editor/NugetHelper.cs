@@ -184,11 +184,11 @@
         private static void RunNugetProcess(string arguments, bool logOuput = true)
         {
             // Try to find any nuget.exe in the package tools installation location
-            string toolsPackagesFolder = Path.Combine(Application.dataPath, "../Nuget");
+            string toolsPackagesFolder = Path.Combine(Application.dataPath, "Nuget");
 
             // create the folder to prevent an exception when getting the files
             Directory.CreateDirectory(toolsPackagesFolder);
-
+            Debug.Log("hah ->" + toolsPackagesFolder);
             string[] files = Directory.GetFiles(toolsPackagesFolder, "nuget.exe", SearchOption.AllDirectories);
             if (files.Length > 1)
             {
