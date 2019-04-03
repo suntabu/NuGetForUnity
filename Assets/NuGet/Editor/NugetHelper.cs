@@ -188,7 +188,7 @@
 
             // create the folder to prevent an exception when getting the files
             Directory.CreateDirectory(toolsPackagesFolder);
-            Debug.Log("hah ->" + toolsPackagesFolder);
+//            Debug.Log("hah ->" + toolsPackagesFolder);
             string[] files = Directory.GetFiles(toolsPackagesFolder, "nuget.exe", SearchOption.AllDirectories);
             if (files.Length > 1)
             {
