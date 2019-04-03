@@ -71,6 +71,16 @@
             file.ReleaseNotes = "Notes for this specific release";
             file.Copyright = "Copyright 2017";
             file.IconUrl = "https://www.nuget.org/Content/Images/packageDefaultIcon-50x50.png";
+            file.Files = new List<NuspecContentFile>()
+            {
+                new NuspecContentFile()
+                {
+                    Source = "**\\*.*",
+                    Target = "",
+                    Exclude = "\\**\\.git\\**;\\**\\.svn\\**",
+                    
+                }
+            };
             file.Save(filepath);
 
             AssetDatabase.Refresh();
