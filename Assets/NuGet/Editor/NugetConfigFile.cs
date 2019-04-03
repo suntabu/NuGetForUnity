@@ -296,7 +296,7 @@
 @"<?xml version=""1.0"" encoding=""utf-8""?>
 <configuration>
     <packageSources>
-       <add key=""NuGet"" value=""http://www.nuget.org/api/v2/"" />
+       <add key=""NuGet"" value=""http://192.168.0.250:8081/repository/libii_unity/"" />
     </packageSources>
     <disabledPackageSources />
     <activePackageSource>
@@ -304,7 +304,7 @@
     </activePackageSource>
     <config>
        <add key=""repositoryPath"" value=""./Packages"" />
-       <add key=""DefaultPushSource"" value=""http://www.nuget.org/api/v2/"" />
+       <add key=""DefaultPushSource"" value=""http://192.168.0.250:8081/repository/libii_unity/"" />
     </config>
 </configuration>";
 
