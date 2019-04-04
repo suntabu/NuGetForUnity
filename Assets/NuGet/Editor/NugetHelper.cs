@@ -1184,7 +1184,7 @@
                     }
 
                     // copy the .nupkg inside the Unity project
-                    File.Copy(cachedPackagePath, Path.Combine(NugetConfigFile.RepositoryPath, string.Format("{0}.{1}/{0}.{1}.nupkg", package.Id, package.Version)), true);
+                    File.Copy(cachedPackagePath, Path.Combine(NugetConfigFile.RepositoryPath, string.Format("{0}/{0}.{1}.nupkg", package.Id, package.Version)), true);
                 }
                 else
                 {
