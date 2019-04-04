@@ -292,7 +292,7 @@
         /// <param name="package">The NugetPackage to clean.</param>
         private static void Clean(NugetPackageIdentifier package)
         {
-            string packageInstallDirectory = Path.Combine(NugetConfigFile.RepositoryPath, string.Format("{0}.{1}", package.Id, package.Version));
+            string packageInstallDirectory = Path.Combine(NugetConfigFile.RepositoryPath, string.Format("{0}", package.Id));
 
             LogVerbose("Cleaning {0}", packageInstallDirectory);
 
@@ -315,6 +315,8 @@
 
             // Delete documentation folders since they sometimes have HTML docs with JavaScript, which Unity tried to parse as "UnityScript"
             DeleteDirectory(packageInstallDirectory + "/docs");
+
+            return;
 
             if (Directory.Exists(packageInstallDirectory + "/lib"))
             {
@@ -460,7 +462,7 @@
             if (Directory.Exists(packageInstallDirectory + "/tools"))
             {
                 // Move the tools folder outside of the Unity Assets folder
-                string toolsInstallDirectory = Path.Combine(Application.dataPath, string.Format("../Packages/{0}.{1}/tools", package.Id, package.Version));
+                string toolsInstallDirectory = Path.Combine(Application.dataPath, string.Format("../Packages/{0}/tools", package.Id));
 
                 LogVerbose("Moving {0} to {1}", packageInstallDirectory + "/tools", toolsInstallDirectory);
 
@@ -710,13 +712,13 @@
             PackagesConfigFile.RemovePackage(package);
             PackagesConfigFile.Save(PackagesConfigFilePath);
 
-            string packageInstallDirectory = Path.Combine(NugetConfigFile.RepositoryPath, string.Format("{0}.{1}", package.Id, package.Version));
+            string packageInstallDirectory = Path.Combine(NugetConfigFile.RepositoryPath, string.Format("{0}", package.Id));
             DeleteDirectory(packageInstallDirectory);
 
-            string metaFile = Path.Combine(NugetConfigFile.RepositoryPath, string.Format("{0}.{1}.meta", package.Id, package.Version));
+            string metaFile = Path.Combine(NugetConfigFile.RepositoryPath, string.Format("{0}.meta", package.Id));
             DeleteFile(metaFile);
 
-            string toolsInstallDirectory = Path.Combine(Application.dataPath, string.Format("../Packages/{0}.{1}", package.Id, package.Version));
+            string toolsInstallDirectory = Path.Combine(Application.dataPath, string.Format("../Packages/{0}", package.Id));
             DeleteDirectory(toolsInstallDirectory);
 
             installedPackages.Remove(package.Id);
@@ -1165,7 +1167,7 @@
 
                 if (File.Exists(cachedPackagePath))
                 {
-                    string baseDirectory = Path.Combine(NugetConfigFile.RepositoryPath, string.Format("{0}.{1}", package.Id, package.Version));
+                    string baseDirectory = Path.Combine(NugetConfigFile.RepositoryPath, string.Format("{0}", package.Id));
 
                     // unzip the package
                     using (ZipFile zip = ZipFile.Read(cachedPackagePath))

@@ -303,7 +303,7 @@
        <add key=""All"" value=""(Aggregate source)"" />
     </activePackageSource>
     <config>
-       <add key=""repositoryPath"" value=""./Packages"" />
+       <add key=""repositoryPath"" value=""./"" />
        <add key=""DefaultPushSource"" value=""http://192.168.0.250:8081/repository/libii_unity/"" />
     </config>
 </configuration>";
