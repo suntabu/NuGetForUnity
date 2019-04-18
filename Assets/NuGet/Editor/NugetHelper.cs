@@ -1311,7 +1311,7 @@
                     currentProgress += progressStep;
                 }
 
-                CheckForUnnecessaryPackages();
+                //CheckForUnnecessaryPackages();
             }
             catch (Exception e)
             {
