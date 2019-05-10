@@ -11,7 +11,7 @@
         /// <summary>
         /// The current version of NuGet for Unity.
         /// </summary>
-        public const string NuGetForUnityVersion = "1.0.3";
+        public const string NuGetForUnityVersion = "1.1.0";
 
         /// <summary>
         /// The current position of the scroll bar in the GUI.
@@ -70,13 +70,20 @@
                     EditorGUILayout.BeginHorizontal();
                     {
                         GUILayout.Space(29);
-                        EditorGUIUtility.labelWidth = 60;
-                        source.HasPassword = EditorGUILayout.Toggle("password", source.HasPassword);
+                        EditorGUIUtility.labelWidth = 75;
+                        EditorGUILayout.BeginVertical();
+                        source.HasPassword = EditorGUILayout.Toggle("Credentials", source.HasPassword);
                         if (source.HasPassword)
                         {
-                            EditorGUIUtility.labelWidth = 0;
-                            source.SavedPassword = EditorGUILayout.PasswordField(source.SavedPassword);
+                            source.UserName = EditorGUILayout.TextField("User Name", source.UserName);
+                            source.SavedPassword = EditorGUILayout.PasswordField("Password", source.SavedPassword);
                         }
+                        else
+                        {
+                            source.UserName = null;
+                        }
+                        EditorGUIUtility.labelWidth = 0;
+                        EditorGUILayout.EndVertical();
                     }
                     EditorGUILayout.EndHorizontal();
 
