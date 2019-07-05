@@ -36,6 +36,8 @@
             }
         }
 
+        public string UserName { get; set; }
+
         /// <summary>
         /// Gets or sets the password used to access the feed. Null indicates that no password is used.
         /// </summary>
@@ -135,7 +137,7 @@
 
                 try
                 {
-                    foundPackages = GetPackagesFromUrl(url, ExpandedPassword);
+                    foundPackages = GetPackagesFromUrl(url, UserName, ExpandedPassword);
                 }
                 catch (System.Exception e)
                 {
@@ -244,7 +246,7 @@
 
             try
             {
-                return GetPackagesFromUrl(url, ExpandedPassword);
+                return GetPackagesFromUrl(url, UserName, ExpandedPassword);
             }
             catch (System.Exception e)
             {
@@ -331,7 +333,7 @@
         /// <param name="url"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        private List<NugetPackage> GetPackagesFromUrl(string url, string password)
+        private List<NugetPackage> GetPackagesFromUrl(string url, string username, string password)
         {
             NugetHelper.LogVerbose("Getting packages from: {0}", url);
 
@@ -349,14 +351,16 @@
             // add anonymous handler
             ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, policyErrors) => true;
 
-            Stream responseStream = NugetHelper.RequestUrl(url, password, timeOut: 5000);
-            StreamReader streamReader = new StreamReader(responseStream);
-
-            packages = NugetODataResponse.Parse(XDocument.Load(streamReader));
-
-            foreach (var package in packages)
+            using (Stream responseStream = NugetHelper.RequestUrl(url, username, password, timeOut: 5000))
             {
-                package.PackageSource = this;
+                using (StreamReader streamReader = new StreamReader(responseStream))
+                {
+                    packages = NugetODataResponse.Parse(XDocument.Load(streamReader));
+                    foreach (var package in packages)
+                    {
+                        package.PackageSource = this;
+                    }
+                }
             }
 
             stopwatch.Stop();
@@ -445,7 +449,7 @@
 
                 try
                 {
-                    var newPackages = GetPackagesFromUrl(url, ExpandedPassword);
+                    var newPackages = GetPackagesFromUrl(url, UserName, ExpandedPassword);
                     updates.AddRange(newPackages);
                 }
                 catch (System.Exception e)
@@ -533,6 +537,8 @@
         /// <returns>A list of all updates available.</returns>
         private List<NugetPackage> GetUpdatesFallback(IEnumerable<NugetPackage> installedPackages, bool includePrerelease = false, bool includeAllVersions = false, string targetFrameworks = "", string versionContraints = "")
         {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
             Debug.Assert(string.IsNullOrEmpty(targetFrameworks) && string.IsNullOrEmpty(versionContraints)); // These features are not supported by this version of GetUpdates.
 
             List<NugetPackage> updates = new List<NugetPackage>();
@@ -554,6 +560,7 @@
                 updates.AddRange(packageUpdates);
             }
 
+            NugetHelper.LogVerbose("NugetPackageSource.GetUpdatesFallback took {0} ms", stopwatch.ElapsedMilliseconds);
             return updates;
         }
     }
